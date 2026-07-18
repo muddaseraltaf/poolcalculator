@@ -1,0 +1,93 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import FormulaBlock from '../components/FormulaBlock.astro';
+import ProductRecommendation from '../components/ProductRecommendation.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Cloudy Water', url: `${SITE.url}/cloudy-pool/` },
+];
+
+const faq = [
+  {
+    question: 'How much shock for a cloudy pool?',
+    answer:
+      'Cloudy water usually clears with a target of about 20 ppm free chlorine. With cal-hypo that is roughly 2.5 lb per 10,000 gallons. Enter your volume above for the exact dose. If cloudiness came from an algae bloom, use the higher green-pool target instead.',
+  },
+  {
+    question: 'Why is my pool cloudy after shocking?',
+    answer:
+      'Freshly shocked water often turns cloudy for a day as chlorine oxidizes contaminants and the filter catches the debris. Keep the pump running; it typically clears within 24–48 hours. Persistent cloudiness usually means a filtration problem, high pH, or unbalanced water rather than a chlorine shortage.',
+  },
+  {
+    question: 'Will shock alone clear cloudy water?',
+    answer:
+      'Shock handles the organic and chloramine load, but the filter physically removes the particles. Cloudy water clears fastest when you shock, run the pump 24/7, balance pH to 7.2–7.6, and add a clarifier to help the filter grab fine particles.',
+  },
+];
+---
+
+<ToolPage
+  title="Cloudy Pool Shock Calculator"
+  metaTitle="Cloudy Pool Shock Calculator — Clear Hazy Water Fast"
+  description="Hazy, milky pool water? Enter your volume for the exact shock dose to clear cloudiness, plus the filtration and balance steps that finish the job."
+  valueLine="Milky or hazy water? Get the exact dose to reach ~20 ppm and oxidize what’s clouding your pool — then the steps that clear the rest."
+  calcHeading="How much shock to clear cloudy water?"
+  defaultScenario="cloudy"
+  defaultProduct="cal-hypo-68"
+  breadcrumbs={breadcrumbs}
+  faq={faq}
+>
+  <h2>What cloudy water is telling you</h2>
+  <p>
+    Cloudiness means something is suspended in the water that your sanitizer and
+    filter haven’t cleared yet — combined chlorine (chloramines) from heavy use,
+    fine debris after a storm, early algae, or simply water that’s fallen out of
+    balance. A measured shock oxidizes the organic load and combined chlorine so
+    the filter can do the rest.
+  </p>
+
+  <h2>Shock plus filtration, together</h2>
+  <p>
+    Shock is only half the fix; the filter physically removes what the shock
+    oxidizes. For the fastest clear-up:
+  </p>
+  <ul>
+    <li><strong>Balance pH to 7.2–7.6:</strong> high pH itself causes cloudiness and blunts chlorine.</li>
+    <li><strong>Shock to ~20 ppm:</strong> use the dose below to burn off chloramines and organics.</li>
+    <li><strong>Run the pump 24/7:</strong> keep filtering until clear; clean or backwash as pressure rises.</li>
+    <li><strong>Add clarifier if needed:</strong> it clumps fine particles so the filter can catch them.</li>
+  </ul>
+
+  <h2>Cloudy or actually green?</h2>
+  <p>
+    If there’s a green tint, you’re fighting algae and need a higher dose — use the
+    <a href="/green-pool/">green pool calculator</a> instead. If the pool just
+    reopened for the season, the <a href="/pool-opening/">pool opening calculator</a>
+    sets the right target for that.
+  </p>
+
+  <FormulaBlock
+    slot="formula"
+    example={{
+      context: 'Example: a 12,000-gallon cloudy pool with cal-hypo 68%.',
+      steps: [
+        'Cloudy-water target is about 20 ppm free chlorine; assume current FC ≈ 0.',
+        'Raise needed = 20 ppm.',
+        'Pure chlorine ≈ 8.5e-6 lb × 20 × 12,000 = 2.04 lb.',
+        'Product = 2.04 ÷ 0.68 ≈ 3.0 lb of cal-hypo 68%.',
+      ],
+      answer: 'Add about 3 lb of cal-hypo 68%, run the filter 24/7, and expect clear water in 24–48 hours.',
+    }}
+  />
+
+  <ProductRecommendation
+    slot="products"
+    items={[
+      { name: 'Cal-hypo 68% shock', note: 'Strong oxidizer to burn off the chloramines behind most cloudiness.', searchTerm: 'cal hypo pool shock 68%' },
+      { name: 'Pool water clarifier', note: 'Coagulates fine particles so your filter can remove them.', searchTerm: 'pool water clarifier cloudy' },
+      { name: 'Filter cleaner', note: 'A clean filter clears cloudy water far faster.', searchTerm: 'pool filter cleaner cartridge de sand' },
+    ]}
+  />
+</ToolPage>

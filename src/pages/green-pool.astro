@@ -1,0 +1,99 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import FormulaBlock from '../components/FormulaBlock.astro';
+import ProductRecommendation from '../components/ProductRecommendation.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Green Pool', url: `${SITE.url}/green-pool/` },
+];
+
+const faq = [
+  {
+    question: 'How much shock does it take to clear a green pool?',
+    answer:
+      'Clearing algae usually needs free chlorine around 30 ppm and often more than one dose. With cal-hypo 73%, that is roughly 3.5 lb per 10,000 gallons for the first shock. Enter your gallons above for your exact amount, then re-shock daily until the water turns from green to cloudy grey and finally clear.',
+  },
+  {
+    question: 'Why is my pool still green after shocking?',
+    answer:
+      'The three usual causes are too little chlorine for the pool’s size, high cyanuric acid (CYA) locking up the chlorine, and not running the filter. Brush the walls, run the pump 24/7, keep FC at shock level until it holds overnight, and if CYA is above ~50 ppm consider a partial drain and refill.',
+  },
+  {
+    question: 'Should I use cal-hypo or liquid chlorine for a green pool?',
+    answer:
+      'Cal-hypo is the most cost-effective way to reach high chlorine fast and is the common choice for algae. Use liquid chlorine instead if you have a saltwater pool, high calcium hardness, or high CYA, since cal-hypo adds calcium.',
+  },
+  {
+    question: 'How long does it take to clear a green pool?',
+    answer:
+      'A light green tint can clear in 24–48 hours. A deep, swampy green with poor visibility can take 3–5 days of daily shocking, brushing, filtering, and cleaning or backwashing the filter as it loads up with dead algae.',
+  },
+];
+---
+
+<ToolPage
+  title="Green Pool Shock Calculator"
+  metaTitle="Green Pool Shock Calculator — How Much to Kill Algae"
+  description="Green, algae-filled pool? Enter your volume to get the exact shock dose to reach breakpoint and clear the water, plus a day-by-day recovery plan."
+  valueLine="Algae bloom? Get the exact shock dose to reach ~30 ppm and break it — plus how to keep dosing until the water runs clear."
+  calcHeading="How much shock to clear my green pool?"
+  defaultScenario="green"
+  defaultProduct="cal-hypo-73"
+  breadcrumbs={breadcrumbs}
+  faq={faq}
+>
+  <h2>Why green water needs a big dose</h2>
+  <p>
+    Algae is a living bloom, and it consumes chlorine faster than you can add small
+    amounts. To kill it you have to overwhelm it — reaching roughly 30 ppm of free
+    chlorine and holding that level until the algae dies off. Under-dosing just
+    feeds a cycle where the algae keeps rebounding, so this page defaults to the
+    green-pool target and a strong cal-hypo product to get you there in as few doses
+    as possible.
+  </p>
+
+  <h2>Your green-pool recovery plan</h2>
+  <p>
+    Shocking is step one of four. Work through all of them together for the fastest
+    clear-up:
+  </p>
+  <ul>
+    <li><strong>Balance first:</strong> lower pH toward 7.2 so chlorine is most effective, and test CYA — very high stabilizer will fight you.</li>
+    <li><strong>Shock to target:</strong> add the dose below, ideally at dusk so sun doesn’t burn it off before it works.</li>
+    <li><strong>Brush and filter:</strong> brush walls and floor, then run the pump 24/7. Clean or backwash the filter as it clogs with dead algae.</li>
+    <li><strong>Re-shock daily:</strong> repeat until free chlorine holds overnight and the water turns grey, then clear.</li>
+  </ul>
+
+  <h2>Green, then cloudy, then clear</h2>
+  <p>
+    Expect the color to shift from green to cloudy white or grey before it clears —
+    that cloudiness is dead algae the filter still needs to remove. If you get stuck
+    at the cloudy stage, our
+    <a href="/cloudy-pool/">cloudy pool calculator</a> covers that final push.
+  </p>
+
+  <FormulaBlock
+    slot="formula"
+    example={{
+      context: 'Example: a 15,000-gallon deep-green pool with cal-hypo 73%.',
+      steps: [
+        'Green-pool target is about 30 ppm free chlorine; assume current FC ≈ 0.',
+        'Raise needed = 30 ppm.',
+        'Pure chlorine ≈ 8.5e-6 lb × 30 × 15,000 = 3.83 lb.',
+        'Product = 3.83 ÷ 0.73 ≈ 5.25 lb of cal-hypo 73% for the first shock.',
+      ],
+      answer: 'Add about 5.25 lb of cal-hypo 73%, brush, filter 24/7, and re-shock daily until clear.',
+    }}
+  />
+
+  <ProductRecommendation
+    slot="products"
+    items={[
+      { name: 'Cal-hypo 73% shock', note: 'Reaches algae-killing levels fast and economically.', searchTerm: 'cal hypo pool shock 73%' },
+      { name: 'Pool brush + telescopic pole', note: 'Brushing dislodges algae so chlorine can reach it.', searchTerm: 'pool brush algae telescopic pole' },
+      { name: 'Clarifier or flocculant', note: 'Helps the filter capture dead-algae cloudiness after the shock.', searchTerm: 'pool clarifier flocculant algae' },
+    ]}
+  />
+</ToolPage>

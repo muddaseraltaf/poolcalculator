@@ -1,0 +1,70 @@
+---
+import ContentPage from '../layouts/ContentPage.astro';
+import { SITE } from '../config/site';
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Terms of Use', url: `${SITE.url}/terms/` },
+];
+---
+<ContentPage
+  title="Terms of Use"
+  description="The terms governing your use of Pool Shock Calculator, including our disclaimer of warranties and limitation of liability."
+  breadcrumbs={breadcrumbs}
+>
+  <p><em>Last updated: {SITE.dataUpdated}.</em></p>
+
+  <p>
+    By using Pool Shock Calculator ({SITE.url}), you agree to these terms. If you do
+    not agree, please do not use the site.
+  </p>
+
+  <h2>Informational use only</h2>
+  <p>
+    The calculators and content on this site are provided for general informational
+    and educational purposes. They produce <strong>estimates</strong> based on the
+    values you enter and published reference data. They are not professional,
+    chemical safety, or medical advice, and are not a substitute for the directions
+    printed on your chemical products.
+  </p>
+
+  <h2>Follow product labels and handle chemicals safely</h2>
+  <ul>
+    <li>Always read and follow the dosing and safety instructions on your product’s label; the label overrides any figure from this site.</li>
+    <li>Never mix pool chemicals with each other, and always add chemicals to water, never water to chemicals.</li>
+    <li>Store chemicals safely, away from children, and use appropriate protective equipment.</li>
+    <li>Re-test your water and wait until free chlorine returns to a safe level before swimming.</li>
+  </ul>
+
+  <h2>No warranties</h2>
+  <p>
+    The site is provided “as is” and “as available” without warranties of any kind,
+    express or implied, including accuracy, fitness for a particular purpose, or
+    non-infringement. Water chemistry varies with many factors we can’t measure, so
+    we do not warrant that any result will be correct for your specific pool.
+  </p>
+
+  <h2>Limitation of liability</h2>
+  <p>
+    To the fullest extent permitted by law, {SITE.publisher} and its contributors
+    are not liable for any damages arising from your use of this site or reliance on
+    its results, including damage to pools, equipment, property, or health. You use
+    the site and any calculated dose at your own risk.
+  </p>
+
+  <h2>External and affiliate links</h2>
+  <p>
+    We may link to third-party sites and products, including affiliate links. We are
+    not responsible for the content, products, or policies of those third parties.
+  </p>
+
+  <h2>Changes to these terms</h2>
+  <p>
+    We may revise these terms as the site changes. Continued use after an update
+    means you accept the revised terms.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about these terms? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</ContentPage>

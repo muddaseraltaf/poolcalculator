@@ -1,0 +1,28 @@
+---
+// Formula + worked example block. Pages pass their own worked numbers so each
+// page shows a scenario-appropriate example rather than a generic one.
+interface Props {
+  example: {
+    context: string; // e.g. "A 20,000-gallon green pool with cal-hypo 73%"
+    steps: string[]; // human-readable calculation steps
+    answer: string; // the resulting dose sentence
+  };
+}
+const { example } = Astro.props;
+---
+
+<section class="mt-10 rounded-xl border border-pool-100 bg-pool-50/50 p-5" slot="formula">
+  <h2 class="text-xl font-bold text-pool-900">The formula, with a worked example</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    Product needed = (target FC − current FC) × pool gallons × per-gallon factor
+    ÷ the product's available-chlorine %. Granular is weighed; liquid is measured
+    by volume.
+  </p>
+  <div class="mt-4 rounded-lg bg-white p-4 text-sm">
+    <p class="font-medium text-slate-800">{example.context}</p>
+    <ol class="mt-2 list-decimal space-y-1 pl-5 text-slate-600">
+      {example.steps.map((s) => <li>{s}</li>)}
+    </ol>
+    <p class="mt-3 font-semibold text-pool-800">{example.answer}</p>
+  </div>
+</section>

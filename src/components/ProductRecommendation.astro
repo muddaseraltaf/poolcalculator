@@ -1,0 +1,47 @@
+---
+// Genuine "next action" product suggestion, shown AFTER results. Affiliate links
+// activate only when PUBLIC_AFFILIATE_TAG is set; until then it's plain,
+// non-tracking helper text so nothing misleads visitors.
+interface Props {
+  title?: string;
+  items: { name: string; note: string; searchTerm: string }[];
+}
+const { title = 'Common products for this job', items } = Astro.props;
+const TAG = import.meta.env.PUBLIC_AFFILIATE_TAG ?? '';
+
+function link(term: string) {
+  const q = encodeURIComponent(term);
+  // Neutral search link; appends affiliate tag only when configured.
+  const base = `https://www.amazon.com/s?k=${q}`;
+  return TAG ? `${base}&tag=${TAG}` : base;
+}
+---
+
+<section class="mt-8 rounded-xl border border-slate-200 p-5">
+  <h2 class="text-lg font-semibold text-slate-800">{title}</h2>
+  <ul class="mt-3 space-y-3">
+    {
+      items.map((it) => (
+        <li class="text-sm">
+          <a
+            href={link(it.searchTerm)}
+            rel="nofollow sponsored"
+            target="_blank"
+            class="font-medium text-pool-700 underline hover:text-pool-800"
+          >
+            {it.name}
+          </a>
+          <span class="text-slate-600"> — {it.note}</span>
+        </li>
+      ))
+    }
+  </ul>
+  {
+    TAG && (
+      <p class="mt-3 text-xs text-slate-400">
+        As an Amazon Associate we may earn from qualifying purchases. This never
+        affects the dose we calculate for you.
+      </p>
+    )
+  }
+</section>

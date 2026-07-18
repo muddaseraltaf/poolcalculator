@@ -1,0 +1,45 @@
+---
+import ContentPage from '../layouts/ContentPage.astro';
+import { SITE } from '../config/site';
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Contact', url: `${SITE.url}/contact/` },
+];
+---
+<ContentPage
+  title="Contact"
+  description="Get in touch with the Pool Shock Calculator team — corrections, product strengths to add, and general questions."
+  breadcrumbs={breadcrumbs}
+>
+  <p>
+    We read everything and especially want to hear about anything that looks
+    inaccurate. Reader corrections help keep the dosing math honest.
+  </p>
+
+  <h2>Email us</h2>
+  <p>
+    The fastest way to reach us is by email at
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. To help us respond well,
+    please include:
+  </p>
+  <ul>
+    <li>The page you were using (for example, the green pool or liquid chlorine calculator).</li>
+    <li>Your pool volume, the product and strength you selected, and the result you got.</li>
+    <li>What you expected instead, and any source you’re comparing against.</li>
+  </ul>
+
+  <h2>Suggest a product or feature</h2>
+  <p>
+    Using a shock product whose strength isn’t in our list? Send the product name and
+    its available-chlorine percentage from the label and we’ll look at adding it. We
+    also welcome suggestions for new situations or calculators.
+  </p>
+
+  <h2>A note on advice</h2>
+  <p>
+    We’re glad to help you understand how the calculator works, but we can’t
+    diagnose a specific pool remotely or provide professional or medical advice. For
+    stubborn water problems, a local pool professional who can test your water in
+    person is your best bet.
+  </p>
+</ContentPage>

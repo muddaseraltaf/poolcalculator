@@ -1,0 +1,25 @@
+---
+import BaseLayout from './BaseLayout.astro';
+interface Props {
+  title: string;
+  description: string;
+  breadcrumbs?: { name: string; url: string }[];
+}
+const { title, description, breadcrumbs } = Astro.props;
+---
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <article class="prose-psc mx-auto max-w-3xl px-4 py-10 text-slate-700">
+    <h1 class="text-3xl font-bold text-pool-900">{title}</h1>
+    <slot />
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-psc :global(h2) { font-size: 1.4rem; font-weight: 700; color: var(--color-pool-900); margin-top: 1.75rem; }
+  .prose-psc :global(h3) { font-size: 1.1rem; font-weight: 600; color: var(--color-pool-800); margin-top: 1rem; }
+  .prose-psc :global(p) { margin-top: .75rem; line-height: 1.7; }
+  .prose-psc :global(ul) { margin-top: .5rem; list-style: disc; padding-left: 1.25rem; }
+  .prose-psc :global(li) { margin-top: .35rem; }
+  .prose-psc :global(a) { color: var(--color-pool-700); text-decoration: underline; }
+  .prose-psc :global(strong) { color: var(--color-slate-800, #1e293b); }
+</style>

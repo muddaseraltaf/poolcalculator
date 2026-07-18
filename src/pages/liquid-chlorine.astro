@@ -1,0 +1,94 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import FormulaBlock from '../components/FormulaBlock.astro';
+import ProductRecommendation from '../components/ProductRecommendation.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Liquid Chlorine Dose', url: `${SITE.url}/liquid-chlorine/` },
+];
+
+const faq = [
+  {
+    question: 'How much liquid chlorine to shock a pool?',
+    answer:
+      'At 12.5% strength, about 10.7 fluid ounces raises free chlorine 1 ppm per 10,000 gallons — so a 10 ppm maintenance shock is roughly 0.85 gallon per 10,000 gallons. Enter your volume and target above for the exact amount in fluid ounces and gallons.',
+  },
+  {
+    question: 'Is liquid chlorine better than cal-hypo?',
+    answer:
+      'For saltwater pools, high calcium hardness, or high cyanuric acid, yes — liquid chlorine adds no calcium and no stabilizer, so it won’t compound those problems. The downsides are that it’s bulkier to store, heavier to handle, and loses strength as it ages in heat and light.',
+  },
+  {
+    question: 'Does liquid chlorine expire?',
+    answer:
+      'Yes. Sodium hypochlorite degrades over time, faster in heat and sunlight, losing a few percent of strength per month. Buy fresh, store it cool and dark, and use it within a month or two for predictable dosing.',
+  },
+  {
+    question: 'Can I use household bleach instead?',
+    answer:
+      'Plain, unscented household bleach (about 6%) is the same chemical, just weaker, so you need roughly twice the volume of 12.5% pool chlorine. It works in a pinch — select bleach 6% in the calculator — but avoid scented or splash-less versions, which contain additives.',
+  },
+];
+---
+
+<ToolPage
+  title="Liquid Chlorine Shock Calculator"
+  metaTitle="Liquid Chlorine Pool Shock Calculator — Fl Oz & Gallons"
+  description="Calculate the exact liquid chlorine (sodium hypochlorite) shock dose for your pool in fluid ounces and gallons — for 10%, 12.5%, and household bleach."
+  valueLine="Using liquid chlorine? Get the exact dose in fluid ounces and gallons for your pool — no calcium, no stabilizer, ideal for saltwater."
+  calcHeading="How much liquid chlorine does my pool need?"
+  defaultProduct="liquid-12"
+  breadcrumbs={breadcrumbs}
+  faq={faq}
+>
+  <h2>When liquid chlorine is the right call</h2>
+  <p>
+    Liquid chlorine (sodium hypochlorite) is the go-to shock for saltwater pools and
+    any pool where you want to avoid adding calcium or stabilizer. It dissolves
+    instantly, leaves no residue to bleach a liner, and won’t drive up calcium
+    hardness or cyanuric acid the way granular products can. Because it’s a dilute
+    solution, doses are measured by volume — this calculator gives you fluid ounces
+    and gallons for 10%, 12.5%, and 6% household bleach.
+  </p>
+
+  <h2>Getting an accurate dose</h2>
+  <ul>
+    <li><strong>Use fresh product:</strong> liquid chlorine weakens with age and heat, so old stock under-doses.</li>
+    <li><strong>Pour near a return jet</strong> with the pump running to distribute it quickly.</li>
+    <li><strong>Dose at dusk</strong> if the pool isn’t stabilized, since sun burns off unstabilized chlorine fast.</li>
+    <li><strong>Store cool and dark</strong> in its original vented container, away from metal and other chemicals.</li>
+  </ul>
+
+  <h2>Liquid vs. granular</h2>
+  <p>
+    If you don’t mind adding calcium and want the lowest cost, granular cal-hypo is
+    strong and compact — compare with our
+    <a href="/cal-hypo/">cal-hypo calculator</a>. To pick a dose by situation
+    instead of product, use the <a href="/">main calculator</a>.
+  </p>
+
+  <FormulaBlock
+    slot="formula"
+    example={{
+      context: 'Example: a 10 ppm maintenance shock on a 15,000-gallon saltwater pool with 12.5% liquid.',
+      steps: [
+        'Target 10 ppm; assume current FC ≈ 0, so raise = 10 ppm.',
+        'At 12.5%, ~10.7 fl oz raises 1 ppm per 10,000 gal.',
+        'Scale: 10.7 × 10 ppm × (15,000 ÷ 10,000) = ~160 fl oz.',
+        '160 fl oz ÷ 128 = 1.25 gallons of 12.5% liquid chlorine.',
+      ],
+      answer: 'Add about 160 fl oz (1.25 gallons) of 12.5% liquid chlorine — no calcium or stabilizer added.',
+    }}
+  />
+
+  <ProductRecommendation
+    slot="products"
+    items={[
+      { name: 'Liquid chlorine 12.5% (pool grade)', note: 'Standard strength; ideal for saltwater and high-CYA pools.', searchTerm: 'liquid chlorine pool 12.5%' },
+      { name: 'Chemical-resistant measuring jug', note: 'Measure fluid ounces accurately when dosing by volume.', searchTerm: 'chemical resistant measuring jug pool' },
+      { name: 'Liquid chlorine storage caddy', note: 'Keeps jugs upright, cool, and away from other chemicals.', searchTerm: 'pool chemical storage caddy' },
+    ]}
+  />
+</ToolPage>

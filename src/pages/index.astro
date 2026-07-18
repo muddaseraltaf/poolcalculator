@@ -1,0 +1,104 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import FormulaBlock from '../components/FormulaBlock.astro';
+import ProductRecommendation from '../components/ProductRecommendation.astro';
+import { SITE } from '../config/site';
+
+const faq = [
+  {
+    question: 'How much shock do I need for my pool?',
+    answer:
+      'It depends on your pool volume, how far you need to raise free chlorine, and your product’s strength. For routine maintenance most pools target about 10 ppm of free chlorine; a green or algae-filled pool targets around 30 ppm. Enter your gallons and product above for the exact amount in pounds, ounces, cups, or fluid ounces.',
+  },
+  {
+    question: 'What is breakpoint chlorination?',
+    answer:
+      'Breakpoint is the chlorine level that destroys combined chlorine (chloramines) instead of just adding to them. The standard target is 10 times your combined chlorine reading (combined = total chlorine minus free chlorine). If you enter both readings, the calculator uses the higher of the breakpoint target or your situation’s target.',
+  },
+  {
+    question: 'How long after shocking can I swim?',
+    answer:
+      'Wait until free chlorine falls back to 1–5 ppm. For a light dose that can be a few hours; after a heavy green-pool shock it is often 24 hours or more. Always re-test before anyone gets in.',
+  },
+  {
+    question: 'Cal-hypo or liquid chlorine — which should I use?',
+    answer:
+      'Cal-hypo is a strong, inexpensive granular shock but adds calcium and is not ideal for saltwater pools or already-hard water. Liquid chlorine adds no calcium or stabilizer, which makes it a better fit for saltwater and high-CYA pools, but it is bulkier and loses strength with age.',
+  },
+];
+---
+
+<ToolPage
+  title="Pool Shock Calculator"
+  metaTitle="Pool Shock Calculator — Exact Dose in Lbs, Oz & Cups"
+  description={SITE.description}
+  valueLine="Enter your pool volume and shock product to get the exact dose — in pounds, ounces, cups, or fluid ounces — plus breakpoint target and how long to wait before swimming."
+  calcHeading="How much shock does my pool need?"
+  faq={faq}
+>
+  <h2>Get the dose right the first time</h2>
+  <p>
+    Guessing at pool shock wastes chemicals, clouds your water, and can bleach a
+    vinyl liner. This calculator turns three simple inputs — your pool volume, the
+    situation you’re dealing with, and the product you own — into a precise dose.
+    It works for every common shock type: calcium hypochlorite (cal-hypo) at 47%,
+    53%, 68%, and 73%, dichlor granular, liquid chlorine (sodium hypochlorite) at
+    10% and 12.5%, and even plain household bleach in a pinch.
+  </p>
+
+  <h2>How the calculator decides your target</h2>
+  <p>
+    Every situation has a different free-chlorine (FC) goal. Routine weekly
+    maintenance aims for about 10 ppm. Opening a pool for the season targets ~15
+    ppm. Cloudy water and post-storm recovery push toward ~20 ppm, and a green,
+    algae-filled pool needs roughly 30 ppm to break the bloom. Pick your situation
+    and the calculator sets the target automatically — or add your test-kit
+    readings for a precise breakpoint dose.
+  </p>
+
+  <h2>Reading your result</h2>
+  <p>
+    The result shows the amount to add, the free-chlorine level you’ll reach, how
+    much you’re raising FC, and how long to wait before swimming. Granular
+    products are given by weight (and approximate cups); liquid products are given
+    by fluid ounces and gallons. Any product-specific cautions — like calcium from
+    cal-hypo or stabilizer from dichlor — appear right alongside the dose.
+  </p>
+
+  <h2>Calculators for every situation and product</h2>
+  <p>
+    Dealing with a specific problem or using a particular chemical? These focused
+    calculators come pre-set with the right target and product:
+  </p>
+  <ul>
+    <li><a href="/green-pool/">Green pool calculator</a> — clear an algae bloom at breakpoint levels.</li>
+    <li><a href="/cloudy-pool/">Cloudy water calculator</a> — oxidize the haze and clear milky water.</li>
+    <li><a href="/pool-opening/">Pool opening calculator</a> — season-startup shock in the right order.</li>
+    <li><a href="/hot-tub-spa/">Hot tub & spa calculator</a> — precise small-volume doses.</li>
+    <li><a href="/cal-hypo/">Cal-hypo dose calculator</a> — pounds, ounces, and cups for 68% and 73%.</li>
+    <li><a href="/liquid-chlorine/">Liquid chlorine calculator</a> — fluid ounces and gallons for 10%, 12.5%, and bleach.</li>
+  </ul>
+
+  <FormulaBlock
+    slot="formula"
+    example={{
+      context: 'Example: a 20,000-gallon green pool, shocking with cal-hypo 73%.',
+      steps: [
+        'Target for a green pool is about 30 ppm free chlorine; assume current FC is 0.',
+        'Raise needed = 30 − 0 = 30 ppm.',
+        'Pure available chlorine ≈ 8.5e-6 lb × 30 ppm × 20,000 gal = 5.1 lb.',
+        'Product weight = 5.1 lb ÷ 0.73 available chlorine ≈ 7.0 lb of cal-hypo 73%.',
+      ],
+      answer: 'Add about 7 lb of cal-hypo 73% (roughly 16 cups), then re-test before swimming.',
+    }}
+  />
+
+  <ProductRecommendation
+    slot="products"
+    items={[
+      { name: 'Calcium hypochlorite (cal-hypo) shock', note: 'Strong, low-cost granular shock for most non-salt pools.', searchTerm: 'cal hypo pool shock 73%' },
+      { name: 'Liquid chlorine / pool bleach (12.5%)', note: 'No calcium or stabilizer — great for saltwater and high-CYA pools.', searchTerm: 'liquid chlorine pool 12.5%' },
+      { name: 'Digital or drop test kit', note: 'Measure free and total chlorine to unlock the precise breakpoint dose.', searchTerm: 'pool water test kit free total chlorine' },
+    ]}
+  />
+</ToolPage>

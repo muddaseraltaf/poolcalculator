@@ -1,0 +1,91 @@
+---
+import { SITE } from '../config/site';
+import { buildGraph } from '../lib/schema';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  isTool?: boolean;
+  breadcrumbs?: { name: string; url: string }[];
+  faq?: { question: string; answer: string }[];
+}
+
+const { title, description, isTool = false, breadcrumbs, faq } = Astro.props;
+
+// Dynamic self-referencing canonical derived from the page path, forced to a
+// trailing slash so bots never index /path vs /path/ duplicates.
+let path = Astro.url.pathname;
+if (!path.endsWith('/')) path += '/';
+const canonical = new URL(path, SITE.url).href;
+
+const fullTitle =
+  title === SITE.name ? title : `${title} | ${SITE.name}`;
+
+const graph = buildGraph({
+  pageUrl: canonical,
+  title: fullTitle,
+  description,
+  isTool,
+  breadcrumbs,
+  faq,
+});
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <set:html
+      set:html={`<script type="application/ld+json">${JSON.stringify(graph)}</` + `script>`}
+    />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-pool-700 focus:px-4 focus:py-2 focus:text-white"
+      >Skip to calculator</a
+    >
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <button
+      id="back-to-top"
+      aria-label="Back to top"
+      class="fixed bottom-5 right-5 z-40 hidden h-11 w-11 items-center justify-center rounded-full bg-pool-700 text-white shadow-lg transition hover:bg-pool-800"
+    >
+      ↑
+    </button>
+    <script>
+      const btn = document.getElementById('back-to-top');
+      if (btn) {
+        const toggle = () =>
+          btn.classList.toggle('hidden', window.scrollY < 400);
+        toggle();
+        window.addEventListener('scroll', toggle, { passive: true });
+        btn.addEventListener('click', () =>
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        );
+      }
+    </script>
+  </body>
+</html>

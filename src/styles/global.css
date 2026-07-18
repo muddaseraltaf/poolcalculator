@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+/* Pool/water theme design tokens */
+@theme {
+  --color-pool-50: #eff9ff;
+  --color-pool-100: #daf0ff;
+  --color-pool-200: #bce6ff;
+  --color-pool-300: #8ed7ff;
+  --color-pool-400: #59bfff;
+  --color-pool-500: #33a1fb;
+  --color-pool-600: #1d82f0;
+  --color-pool-700: #1568dc;
+  --color-pool-800: #1854b2;
+  --color-pool-900: #1a488c;
+  --color-pool-950: #142d55;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-white text-slate-800 antialiased;
+}
+
+/* Reserve space so the sticky header never shifts layout (zero CLS). */
+:target {
+  scroll-margin-top: 5rem;
+}

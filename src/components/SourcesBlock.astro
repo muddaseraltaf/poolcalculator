@@ -1,0 +1,45 @@
+---
+import { SITE } from '../config/site';
+// Trust block: cited primary sources + data date + brand review + change log.
+// Sources are authoritative and general; we cite the standards, not fabricate a person.
+const sources = [
+  {
+    label: 'CDC — Healthy Swimming / hyperchlorination & free chlorine targets',
+    url: 'https://www.cdc.gov/healthy-swimming/about/index.html',
+  },
+  {
+    label: 'Manufacturer product labels & SDS for available-chlorine percentages',
+    url: 'https://www.epa.gov/pesticide-labels',
+  },
+  {
+    label: 'Breakpoint chlorination method (10× combined chlorine) — pool operator standards',
+    url: 'https://www.pooloperationmanagement.com/',
+  },
+];
+interface Props { changelog?: { date: string; note: string }[]; }
+const { changelog = [{ date: SITE.dataUpdated, note: 'Initial published version with breakpoint-aware dosing.' }] } = Astro.props;
+---
+
+<section class="mt-10 border-t border-slate-100 pt-6 text-sm text-slate-600">
+  <h2 class="text-base font-semibold text-slate-800">Sources & methodology</h2>
+  <p class="mt-2">
+    Dosing uses published available-chlorine percentages and the breakpoint
+    chlorination rule (target = 10× combined chlorine). Full worked math is on our
+    <a href="/methodology/" class="text-pool-700 underline">methodology page</a>.
+  </p>
+  <ul class="mt-3 list-disc space-y-1 pl-5">
+    {sources.map((s) => (
+      <li><a href={s.url} rel="nofollow" target="_blank" class="text-pool-700 underline">{s.label}</a></li>
+    ))}
+  </ul>
+  <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-500">
+    <span>Data reviewed: <strong>{SITE.dataUpdated}</strong></span>
+    <span>Reviewed by: {SITE.publisher}</span>
+  </div>
+  <details class="mt-3 text-xs text-slate-500">
+    <summary class="cursor-pointer">Change log</summary>
+    <ul class="mt-2 space-y-1">
+      {changelog.map((c) => <li>{c.date} — {c.note}</li>)}
+    </ul>
+  </details>
+</section>

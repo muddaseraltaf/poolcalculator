@@ -1,0 +1,53 @@
+---
+import ContentPage from '../layouts/ContentPage.astro';
+import { SITE } from '../config/site';
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'About', url: `${SITE.url}/about/` },
+];
+---
+<ContentPage
+  title="About Pool Shock Calculator"
+  description="Who builds Pool Shock Calculator, why it exists, and how we keep the dosing math accurate and honest."
+  breadcrumbs={breadcrumbs}
+>
+  <p>
+    Pool Shock Calculator exists to answer one deceptively tricky question — “how
+    much shock does my pool actually need?” — without the guesswork, unit confusion,
+    or one-size-fits-all charts you find elsewhere. Every dose comes from a single,
+    tested calculation engine, so the number you see here is consistent no matter
+    which page you land on.
+  </p>
+
+  <h2>Why we built it</h2>
+  <p>
+    Most shock “calculators” either assume a fixed pool size, ignore the strength of
+    the product you actually own, or skip the target level entirely. That leads to
+    cloudy water, bleached liners, wasted chemicals, and pools that stay green for
+    days. We wanted a tool that takes your real volume, your real product, and your
+    real situation, and returns an amount you can measure into a bucket.
+  </p>
+
+  <h2>How we keep it accurate</h2>
+  <ul>
+    <li><strong>One tested engine:</strong> all dosing math lives in a single module covered by automated tests, calibrated against published manufacturer and industry reference points.</li>
+    <li><strong>Cited standards:</strong> targets follow public health guidance and the breakpoint chlorination method used by certified pool operators. See our <a href="/methodology/">methodology page</a> for the full math.</li>
+    <li><strong>Honest limits:</strong> we tell you when a product adds calcium or stabilizer, and we always defer to your product label for final dosing and safety.</li>
+    <li><strong>Dated and versioned:</strong> our data-reviewed date and change log are shown on every calculator so you know how current the guidance is.</li>
+  </ul>
+
+  <h2>What this tool is not</h2>
+  <p>
+    We provide estimates for informational use, not professional or medical advice.
+    Water chemistry varies with temperature, stabilizer levels, bather load, and
+    balance, so always test your water and follow the safety directions on your
+    chemical products. For persistent problems, consult a local pool professional.
+  </p>
+
+  <h2>Get in touch</h2>
+  <p>
+    Spotted something off, or have a product strength we should add? We genuinely
+    want to know — reach us on our <a href="/contact/">contact page</a>. Corrections
+    from readers are one of the ways we keep the numbers trustworthy.
+  </p>
+</ContentPage>

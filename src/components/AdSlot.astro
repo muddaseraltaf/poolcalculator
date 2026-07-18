@@ -1,0 +1,19 @@
+---
+// Ad placeholder. Renders nothing user-facing until a real ad client ID is set,
+// so it never blocks the calculator and never ships an empty ad box to visitors.
+// When you have AdSense (or similar), wire the real unit here.
+interface Props { slot?: string; }
+const AD_CLIENT = import.meta.env.PUBLIC_AD_CLIENT ?? '';
+const { slot = 'default' } = Astro.props;
+---
+{
+  AD_CLIENT && (
+    <aside
+      class="mx-auto my-8 max-w-3xl px-4"
+      aria-label="Advertisement"
+      data-ad-slot={slot}
+    >
+      {/* Real ad markup goes here once PUBLIC_AD_CLIENT is configured. */}
+    </aside>
+  )
+}

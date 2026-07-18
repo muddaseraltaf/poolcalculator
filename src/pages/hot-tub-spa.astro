@@ -1,0 +1,100 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import FormulaBlock from '../components/FormulaBlock.astro';
+import ProductRecommendation from '../components/ProductRecommendation.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Hot Tub & Spa', url: `${SITE.url}/hot-tub-spa/` },
+];
+
+const faq = [
+  {
+    question: 'How much shock for a hot tub?',
+    answer:
+      'Hot tubs are small, so doses are tiny — often just a teaspoon or two. For a typical 400-gallon spa, a maintenance shock is a fraction of an ounce of dichlor. Because small errors matter more at this scale, enter your exact gallons above and measure carefully rather than eyeballing it.',
+  },
+  {
+    question: 'What shock should I use in a hot tub?',
+    answer:
+      'Dichlor granular is the most common spa shock: it dissolves fast, is near pH-neutral, and is stabilized. Watch cyanuric acid buildup with frequent use — many spa owners drain and refill every few months partly for that reason. Non-chlorine (MPS) shock is an alternative for oxidizing without raising chlorine.',
+  },
+  {
+    question: 'How long after shocking a hot tub can I use it?',
+    answer:
+      'Leave the cover off and the jets running for at least 15–20 minutes after shocking, and wait until free chlorine drops back to 1–5 ppm before getting in — often 30 minutes to a few hours depending on the dose. Always re-test first.',
+  },
+  {
+    question: 'Why do hot tubs need shocking more often than pools?',
+    answer:
+      'Hot water, high temperatures, aeration from jets, and a very small water volume relative to the number of bathers mean contaminants concentrate fast. Shocking after each use or weekly keeps the water clear and prevents that “used hot tub” smell from chloramines.',
+  },
+];
+---
+
+<ToolPage
+  title="Hot Tub & Spa Shock Calculator"
+  metaTitle="Hot Tub Shock Calculator — Exact Spa Dose"
+  description="Hot tubs need tiny, precise shock doses. Enter your spa’s gallons for the exact amount of dichlor or chlorine shock, plus how long to wait before soaking."
+  valueLine="Small water, small doses. Get the precise spa shock amount for your gallons — measured, not guessed."
+  calcHeading="How much shock does my hot tub need?"
+  defaultScenario="party"
+  defaultProduct="dichlor-56"
+  breadcrumbs={breadcrumbs}
+  faq={faq}
+>
+  <h2>Why spa dosing is all about precision</h2>
+  <p>
+    A hot tub holds a fraction of a pool’s water — often 300 to 500 gallons — so the
+    same “handful” of shock that’s fine in a pool would massively over-chlorinate a
+    spa. At this scale doses are measured in teaspoons and fractions of an ounce, and
+    small mistakes have big effects. Enter your spa’s exact volume and the calculator
+    scales the dose down accurately.
+  </p>
+
+  <h2>Dichlor is the usual spa shock</h2>
+  <p>
+    Most spa owners use dichlor granular because it dissolves quickly, is close to
+    pH-neutral, and is stabilized against the fast chlorine loss you’d otherwise get
+    in hot, aerated water. The catch is that dichlor adds cyanuric acid every time,
+    which is one reason spas are drained and refilled every few months.
+  </p>
+  <ul>
+    <li><strong>Measure by teaspoon:</strong> at spa volumes, precise measuring spoons beat scoops.</li>
+    <li><strong>Jets on, cover off:</strong> run the jets to disperse it and let it off-gas for 15–20 minutes.</li>
+    <li><strong>Shock after heavy use:</strong> a soak adds a lot of contaminants to a little water.</li>
+    <li><strong>Watch CYA:</strong> if dichlor pushes stabilizer high, drain, refill, and start fresh.</li>
+  </ul>
+
+  <h2>Estimating spa volume</h2>
+  <p>
+    If you don’t know your spa’s capacity, check the manufacturer’s spec — most list
+    it in gallons or litres. As a rough guide, a two-to-three-person spa is around
+    200–300 gallons and a larger six-person spa is 400–500 gallons. The
+    <a href="/">main calculator</a> also has a volume helper for rectangular tubs.
+  </p>
+
+  <FormulaBlock
+    slot="formula"
+    example={{
+      context: 'Example: a 400-gallon spa, post-soak refresh with dichlor 56%.',
+      steps: [
+        'Post-use target here is about 15 ppm free chlorine; assume current FC ≈ 0.',
+        'Raise needed = 15 ppm.',
+        'Pure chlorine ≈ 8.5e-6 lb × 15 × 400 = 0.051 lb.',
+        'Product = 0.051 ÷ 0.56 ≈ 0.091 lb ≈ 1.5 oz of dichlor 56%.',
+      ],
+      answer: 'Add about 1.5 oz of dichlor 56% to a 400-gallon spa, run jets 15–20 min, and re-test before soaking.',
+    }}
+  />
+
+  <ProductRecommendation
+    slot="products"
+    items={[
+      { name: 'Dichlor granular spa shock', note: 'Fast-dissolving, near pH-neutral, stabilized — the spa standard.', searchTerm: 'dichlor spa shock granular' },
+      { name: 'Non-chlorine (MPS) spa shock', note: 'Oxidizes without raising chlorine; good between chlorine doses.', searchTerm: 'non chlorine spa shock MPS' },
+      { name: 'Measuring spoons for chemicals', note: 'Teaspoon-level accuracy matters at small spa volumes.', searchTerm: 'chemical measuring spoons pool spa' },
+    ]}
+  />
+</ToolPage>

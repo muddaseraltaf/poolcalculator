@@ -1,0 +1,94 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import FormulaBlock from '../components/FormulaBlock.astro';
+import ProductRecommendation from '../components/ProductRecommendation.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Cal-Hypo Dose', url: `${SITE.url}/cal-hypo/` },
+];
+
+const faq = [
+  {
+    question: 'How much cal-hypo shock per 10,000 gallons?',
+    answer:
+      'For routine maintenance (about a 10 ppm target), roughly 1.9 lb of cal-hypo 68% or 1.75 lb of 73% per 10,000 gallons. A green-pool dose (~30 ppm) is about three times that. Enter your exact volume and target above for a precise weight in pounds, ounces, and cups.',
+  },
+  {
+    question: 'Do I need to pre-dissolve cal-hypo?',
+    answer:
+      'For vinyl-lined and fiberglass pools, yes — dissolve granular cal-hypo in a bucket of water first and pour the solution around the pool to avoid bleaching or etching where undissolved granules settle. Concrete/plaster pools can often broadcast it, but pre-dissolving is always safer.',
+  },
+  {
+    question: 'Does cal-hypo raise calcium hardness?',
+    answer:
+      'Yes. Calcium hypochlorite adds calcium with every dose, so frequent use can push calcium hardness high over a season — a concern in hard-water areas and not ideal for saltwater systems. If your hardness is already high, liquid chlorine is a better choice.',
+  },
+  {
+    question: 'Is cal-hypo the same as pool shock?',
+    answer:
+      'Cal-hypo is the most common type of pool shock, but not the only one. “Shock” also includes dichlor, liquid chlorine (sodium hypochlorite), and non-chlorine (potassium monopersulfate) shock. Cal-hypo is prized for being strong, fast, and inexpensive.',
+  },
+];
+---
+
+<ToolPage
+  title="Cal-Hypo Shock Dose Calculator"
+  metaTitle="Cal-Hypo Shock Calculator — Pounds, Ounces & Cups"
+  description="Calculate the exact calcium hypochlorite (cal-hypo) shock dose for your pool in pounds, ounces, and cups — for 68% and 73% products and any target level."
+  valueLine="Using cal-hypo? Get the exact weight in pounds, ounces, and cups for your pool size and target — 68% or 73%."
+  calcHeading="How much cal-hypo does my pool need?"
+  defaultProduct="cal-hypo-68"
+  breadcrumbs={breadcrumbs}
+  faq={faq}
+>
+  <h2>Why cal-hypo is the default shock</h2>
+  <p>
+    Calcium hypochlorite is the workhorse of pool shock: strong, fast-acting, and
+    the lowest cost per unit of chlorine. It’s unstabilized, so it hits hard and
+    doesn’t add cyanuric acid — ideal for knocking out algae and chloramines. The
+    trade-off is that it adds calcium hardness and isn’t the best fit for saltwater
+    pools. This calculator handles both common strengths (68% and 73%) and gives you
+    the dose by weight and by cups.
+  </p>
+
+  <h2>How to add cal-hypo safely</h2>
+  <ul>
+    <li><strong>Pre-dissolve for vinyl/fiberglass:</strong> mix granules in a bucket of water and pour the solution in to prevent bleaching.</li>
+    <li><strong>Broadcast at dusk:</strong> sunlight destroys unstabilized chlorine quickly, so evening dosing works best.</li>
+    <li><strong>Run the pump</strong> while and after dosing to distribute it evenly.</li>
+    <li><strong>Never mix</strong> cal-hypo with other chemicals, especially trichlor — the combination can be dangerous.</li>
+  </ul>
+
+  <h2>Cal-hypo vs. liquid chlorine</h2>
+  <p>
+    If you have a saltwater pool, high calcium hardness, or high CYA, liquid
+    chlorine avoids the calcium buildup cal-hypo causes. Compare the dose with our
+    <a href="/liquid-chlorine/">liquid chlorine calculator</a>, or head back to the
+    <a href="/">main calculator</a> to pick your situation.
+  </p>
+
+  <FormulaBlock
+    slot="formula"
+    example={{
+      context: 'Example: routine 10 ppm maintenance on a 20,000-gallon pool with cal-hypo 68%.',
+      steps: [
+        'Target 10 ppm; assume current FC ≈ 0, so raise = 10 ppm.',
+        'Pure chlorine ≈ 8.5e-6 lb × 10 × 20,000 = 1.7 lb.',
+        'Product = 1.7 ÷ 0.68 = 2.5 lb of cal-hypo 68%.',
+        'That’s about 40 oz, or roughly 5.7 cups.',
+      ],
+      answer: 'Add about 2.5 lb (≈5.7 cups) of cal-hypo 68% for a routine 10 ppm shock.',
+    }}
+  />
+
+  <ProductRecommendation
+    slot="products"
+    items={[
+      { name: 'Cal-hypo 68% shock', note: 'Balanced strength for routine and cloudy-water shocking.', searchTerm: 'cal hypo pool shock 68%' },
+      { name: 'Cal-hypo 73% shock', note: 'Highest common strength — best for algae and openings.', searchTerm: 'cal hypo pool shock 73%' },
+      { name: 'Bucket + measuring scoop', note: 'For safe pre-dissolving before you pour it in.', searchTerm: 'pool chemical bucket measuring scoop' },
+    ]}
+  />
+</ToolPage>
