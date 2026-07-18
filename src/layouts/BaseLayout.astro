@@ -11,9 +11,11 @@ interface Props {
   isTool?: boolean;
   breadcrumbs?: { name: string; url: string }[];
   faq?: { question: string; answer: string }[];
+  article?: { datePublished: string; dateModified?: string };
 }
 
-const { title, description, isTool = false, breadcrumbs, faq } = Astro.props;
+const { title, description, isTool = false, breadcrumbs, faq, article } =
+  Astro.props;
 
 // Dynamic self-referencing canonical derived from the page path, forced to a
 // trailing slash so bots never index /path vs /path/ duplicates.
@@ -31,6 +33,7 @@ const graph = buildGraph({
   isTool,
   breadcrumbs,
   faq,
+  article: article ? { ...article, headline: title } : undefined,
 });
 ---
 
@@ -44,7 +47,7 @@ const graph = buildGraph({
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -53,6 +56,12 @@ const graph = buildGraph({
     <meta name="twitter:card" content="summary" />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${SITE.name} Blog`}
+      href="/rss.xml"
+    />
     <set:html
       set:html={`<script type="application/ld+json">${JSON.stringify(graph)}</` + `script>`}
     />

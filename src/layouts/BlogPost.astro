@@ -1,0 +1,114 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import { SITE } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  relatedTool?: string;
+  relatedToolLabel?: string;
+  readingMinutes: number;
+  breadcrumbs: { name: string; url: string }[];
+}
+
+const {
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  relatedTool,
+  relatedToolLabel,
+  readingMinutes,
+  breadcrumbs,
+} = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// relatedTool is a slug ('' = home). Build a trailing-slash href.
+const toolHref =
+  relatedTool === undefined
+    ? undefined
+    : relatedTool === ''
+      ? '/'
+      : `/${relatedTool}/`;
+const toolLabel = relatedToolLabel ?? 'the calculator';
+---
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  article={{
+    datePublished: publishDate.toISOString(),
+    dateModified: (updatedDate ?? publishDate).toISOString(),
+  }}
+>
+  <article class="prose-psc mx-auto max-w-3xl px-4 py-10 text-slate-700">
+    <nav aria-label="Breadcrumb" class="mb-4 text-sm text-slate-500">
+      <a href="/blog/" class="text-pool-700 hover:underline">Blog</a>
+      <span aria-hidden="true"> / </span>
+      <span>{title}</span>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-pool-900">{title}</h1>
+    <p class="mt-3 text-sm text-slate-500">
+      <time datetime={publishDate.toISOString()}>{fmt(publishDate)}</time>
+      {updatedDate && (
+        <span> · Updated <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time></span>
+      )}
+      <span> · {readingMinutes} min read · {SITE.publisher}</span>
+    </p>
+
+    {toolHref && (
+      <aside class="my-6 flex flex-col gap-3 rounded-xl bg-pool-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm font-medium text-pool-900">
+          Need a number for your pool? Skip the math and get an exact dose.
+        </p>
+        <a
+          href={toolHref}
+          class="inline-block whitespace-nowrap rounded-lg bg-pool-700 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-pool-800"
+        >
+          Open {toolLabel} →
+        </a>
+      </aside>
+    )}
+
+    <div class="mt-2">
+      <slot />
+    </div>
+
+    {toolHref && (
+      <p class="mt-8 rounded-lg border border-pool-100 bg-pool-50 p-4 text-sm">
+        <strong class="text-pool-900">Get your exact dose:</strong>
+        try <a href={toolHref} class="text-pool-700 underline">{toolLabel}</a> to
+        calculate the precise amount of shock for your pool's volume and current
+        readings.
+      </p>
+    )}
+
+    <Disclaimer />
+
+    <p class="mt-6 text-sm">
+      <a href="/blog/" class="text-pool-700 underline">← Back to all articles</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-psc :global(h2) { font-size: 1.4rem; font-weight: 700; color: var(--color-pool-900); margin-top: 1.75rem; }
+  .prose-psc :global(h3) { font-size: 1.1rem; font-weight: 600; color: var(--color-pool-800); margin-top: 1.25rem; }
+  .prose-psc :global(p) { margin-top: .75rem; line-height: 1.7; }
+  .prose-psc :global(ul), .prose-psc :global(ol) { margin-top: .5rem; list-style: revert; padding-left: 1.25rem; }
+  .prose-psc :global(ul) { list-style: disc; }
+  .prose-psc :global(li) { margin-top: .35rem; line-height: 1.65; }
+  .prose-psc :global(a) { color: var(--color-pool-700); text-decoration: underline; }
+  .prose-psc :global(strong) { color: var(--color-slate-800, #1e293b); }
+  .prose-psc :global(blockquote) { border-left: 3px solid var(--color-pool-200, #bae6fd); padding-left: 1rem; margin-top: 1rem; color: var(--color-slate-600, #475569); font-style: italic; }
+  .prose-psc :global(table) { margin-top: 1rem; width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .prose-psc :global(th), .prose-psc :global(td) { border: 1px solid var(--color-slate-200, #e2e8f0); padding: .5rem .75rem; text-align: left; }
+  .prose-psc :global(th) { background: var(--color-slate-50, #f8fafc); font-weight: 600; }
+  .prose-psc :global(h2 a), .prose-psc :global(h3 a) { text-decoration: none; }
+</style>

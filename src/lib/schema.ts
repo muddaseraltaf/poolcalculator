@@ -4,6 +4,12 @@ import { SITE } from '../config/site';
 
 type FaqItem = { question: string; answer: string };
 
+interface ArticleMeta {
+  datePublished: string; // ISO
+  dateModified?: string; // ISO
+  headline?: string; // clean title without site-name suffix
+}
+
 interface GraphOptions {
   pageUrl: string; // absolute, trailing slash
   title: string;
@@ -11,6 +17,7 @@ interface GraphOptions {
   isTool?: boolean; // render WebApplication/SoftwareApplication node
   breadcrumbs?: { name: string; url: string }[];
   faq?: FaqItem[];
+  article?: ArticleMeta; // render BlogPosting node for blog posts
 }
 
 const ORG_ID = `${SITE.url}/#organization`;
@@ -69,6 +76,22 @@ export function buildGraph(opts: GraphOptions) {
         name: b.name,
         item: b.url,
       })),
+    });
+  }
+
+  if (opts.article) {
+    graph.push({
+      '@type': 'BlogPosting',
+      '@id': `${opts.pageUrl}#article`,
+      headline: opts.article.headline ?? opts.title,
+      description: opts.description,
+      url: opts.pageUrl,
+      datePublished: opts.article.datePublished,
+      dateModified: opts.article.dateModified ?? opts.article.datePublished,
+      author: { '@id': ORG_ID },
+      publisher: { '@id': ORG_ID },
+      isPartOf: { '@id': SITE_ID },
+      mainEntityOfPage: { '@id': `${opts.pageUrl}#webpage` },
     });
   }
 

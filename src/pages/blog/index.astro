@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import ContentPage from '../../layouts/ContentPage.astro';
+import { SITE } from '../../config/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Blog', url: `${SITE.url}/blog/` },
+];
+---
+<ContentPage
+  title="Pool Care Blog"
+  description="Clear, practical guides on shocking your pool, clearing green or cloudy water, chlorine chemistry, and swim-safe timing — from the Pool Shock Calculator team."
+  breadcrumbs={breadcrumbs}
+>
+  <p>
+    Practical answers to the pool-chemistry questions people actually ask —
+    swim-safe timing, why water stays green, how often to shock, and which product
+    to reach for. Every guide links to a calculator so you can turn the advice into
+    an exact dose for your pool.
+  </p>
+
+  <ul class="not-prose mt-8 space-y-6" style="list-style:none;padding-left:0;">
+    {posts.map((post) => (
+      <li class="border-t border-slate-100 pt-6">
+        <h2 style="margin-top:0;">
+          <a href={`/blog/${post.id}/`} class="text-pool-800 no-underline hover:text-pool-600">
+            {post.data.title}
+          </a>
+        </h2>
+        <p class="mt-1 text-sm text-slate-500">
+          <time datetime={post.data.publishDate.toISOString()}>{fmt(post.data.publishDate)}</time>
+        </p>
+        <p class="mt-2 text-slate-600">{post.data.description}</p>
+        <p class="mt-2">
+          <a href={`/blog/${post.id}/`} class="text-pool-700 underline">Read the guide →</a>
+        </p>
+      </li>
+    ))}
+  </ul>
+
+  {posts.length === 0 && <p>New guides are on the way. Check back soon.</p>}
+</ContentPage>

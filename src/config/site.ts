@@ -22,11 +22,13 @@ export const NAV = [
   { label: 'Cloudy Water', href: '/cloudy-pool/' },
   { label: 'Pool Opening', href: '/pool-opening/' },
   { label: 'Hot Tub', href: '/hot-tub-spa/' },
+  { label: 'Blog', href: '/blog/' },
   { label: 'Methodology', href: '/methodology/' },
 ] as const;
 
 export const FOOTER_LINKS = [
   { label: 'About', href: '/about/' },
+  { label: 'Blog', href: '/blog/' },
   { label: 'Methodology', href: '/methodology/' },
   { label: 'Contact', href: '/contact/' },
   { label: 'Privacy', href: '/privacy/' },
