@@ -8,15 +8,21 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "astro": "astro",
-    "test": "node --experimental-strip-types --test \"src/**/*.test.ts\""
+    "test": "node --experimental-strip-types --test \"src/**/*.test.ts\"",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.1.4",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.1",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.113.0"
   }
 }
